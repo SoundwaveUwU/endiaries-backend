@@ -3,12 +3,12 @@
 return [
 
     'access' => [
-        'lifetime' => 60 * 15,
+        'lifetime' => 15,
     ],
 
     'refresh' => [
         'length' => 64,
-        'lifetime' => 60 * 60 * 24 * 180,
+        'lifetime' => 60 * 24 * 180,
     ],
 
     'keys' => [

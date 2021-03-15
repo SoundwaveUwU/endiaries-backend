@@ -7,11 +7,11 @@
     </div>
     <div class="flex items-center">
         @guest
-            <x-button href="/account/login"
+            <x-button href="{{ route('login') }}"
                         icon="sign-in-alt">
                 Sign in
             </x-button>
-            <x-button href="/account/create"
+            <x-button href="{{ route('register') }}"
                         background="bg-blue-500"
                         text="text-white"
                         icon="user-plus">
@@ -19,7 +19,9 @@
             </x-button>
         @else
             Here will be blog switcher
-            <form action="{{ route('logout') }}">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+
                 <x-button icon="sign-out-alt">
                     Sign out
                 </x-button>

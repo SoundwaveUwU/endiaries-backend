@@ -97,7 +97,6 @@ class Button extends Component
                 $classes = $classes->merge([
                     'px-2 md:px-3',
                     'py-1 md:py-2',
-                    'font-bold',
                     'text-sm md:text-regular'
                 ]);
                 break;

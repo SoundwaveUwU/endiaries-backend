@@ -15,11 +15,17 @@ return [
     |
     */
 
-    'paths' => ['*'],
+    'paths' => [
+
+    ],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'http://endiaries.test',
+        'https://endiaries.test',
+        '*',
+    ],
 
     'allowed_origins_patterns' => [],
 

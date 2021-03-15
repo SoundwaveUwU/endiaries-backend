@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DRIVER', 'ugc_public'),
 
     /*
     |--------------------------------------------------------------------------
@@ -51,7 +51,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('ASSET_URL').'/',
             'visibility' => 'public',
         ],
 
@@ -63,6 +63,39 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
+        ],
+
+        'ugc_temp' => [
+            'driver' => 'local',
+            'root' => storage_path('app/tmp'),
+        ],
+
+        'ugc_original_public' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/ugc/original'),
+            'url' => env('ASSET_URL').'/ugc/original',
+            'visibility' => 'public',
+        ],
+
+        'ugc_thumbnail_public' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/ugc/thumbnail'),
+            'url' => env('ASSET_URL').'/ugc/thumbnail',
+            'visibility' => 'public',
+        ],
+
+        'ugc_original_private' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/ugc/original'),
+            'url' => env('ASSET_URL').'/ugc/original',
+            'visibility' => 'private',
+        ],
+
+        'ugc_thumbnail_private' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/ugc/thumbnail'),
+            'url' => env('ASSET_URL').'/ugc/thumbnail',
+            'visibility' => 'private',
         ],
 
     ],
@@ -79,7 +112,8 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        //public_path('storage') => storage_path('app/public'),
+        public_path('ugc') => storage_path('app/public/ugc'),
     ],
 
 ];

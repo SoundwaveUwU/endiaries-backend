@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/newtumbler-backend.iml" filepath="$PROJECT_DIR$/.idea/newtumbler-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../newtumbler_frontend/.idea/newtumbler_frontend.iml" filepath="$PROJECT_DIR$/../newtumbler_frontend/.idea/newtumbler_frontend.iml" />
     </modules>
   </component>
 </project>

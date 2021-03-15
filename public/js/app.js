@@ -115,8 +115,8 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\projects\newtumbler\backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\projects\newtumbler\backend\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! D:\projects\newtumbler\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\projects\newtumbler\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })
