@@ -23,6 +23,10 @@ class BlogSeeder extends Seeder
             ->for($users->random())
             ->create()
             ->each(function ($blog) {
+                // some blogs may lack avatar
+                if (rand(1, 100) >= 50)
+                    return;
+
                 $width = rand(32, 512);
 
                 $blog->addMediaFromUrl("http://placekitten.com/{$width}/{$width}")

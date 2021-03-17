@@ -24,6 +24,7 @@ class BlogController extends Controller
     {
         return BlogResource::collection(
             Blog::withCount('followers')
+                ->with('media')
                 ->orderBy('followers_count', 'desc')
                 ->take(5)
                 ->get()

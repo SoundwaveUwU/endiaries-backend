@@ -5,5 +5,13 @@
     "Don't have an account?": "Нет аккаунта?",
     "OR": "ИЛИ",
     "Login": "Вход",
-    "VK": "ВКонтакте"
+    "VK": "ВКонтакте",
+    "Popular tags": "Популярные теги",
+    "Recommended blogs": "Рекомендуемые блоги",
+    "Load older sessions": "Загрузить ещё сессий",
+    "Device": "Устройство",
+    "OS": "ОС",
+    "Browser": "Браузер",
+    "Location": "Местоположение",
+    "IP": "IP адрес"
 }

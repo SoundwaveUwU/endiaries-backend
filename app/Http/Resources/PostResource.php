@@ -14,6 +14,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property Blog|null blog
  * @property Carbon created_at
  * @property string created_at_human_readable
+ * @property int blog_id
  */
 class PostResource extends JsonResource
 {
@@ -28,18 +29,18 @@ class PostResource extends JsonResource
      */
     public function toArray($request): array
     {
-        //return cache()->rememberForever("post.{$this->id}", function () {
+        return cache()->rememberForever("post.{$this->id}", function () {
             return [
                 'id' => $this->id,
                 'blocks' => $this->blocks,
-                'blog' => BlogResource::make($this->blog),
-                'parent_chain' => PostResource::collection($this->parentChain()),
+                'blog' => $this->blog_id,
+                'parent_chain' => $this->resource->parentChain,
                 'created_at' => (string)$this->created_at,
                 'created_at_human_readable' => $this->created_at_human_readable,
                 'media' => MediaResource::collection($this->media),
                 'shares' => $this->resource->repostsCount(),
                 'likes' => 0,
             ];
-        //});
+        });
     }
 }

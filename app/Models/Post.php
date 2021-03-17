@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Eloquent;
 use Exception;
+use Illuminate\Cache\CacheManager;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,7 +28,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|array $blocks
+ * @property array $blocks
  * @property-read int|null $blocks_count
  * @property-read Blog|null $blog
  * @property-read string $created_at_human_readable
@@ -95,6 +98,10 @@ class Post extends Model implements HasMedia
         return $this->belongsTo(Blog::class);
     }
 
+    /**
+     * @return CacheManager|Application|mixed
+     * @throws Exception
+     */
     public function repostsCount()
     {
         $cacheKey = "post.{$this->id}.reposts_count";
@@ -107,7 +114,7 @@ class Post extends Model implements HasMedia
             return $count + $item->repostsCount();
         }, $this->children()->count());
 
-        cache($cacheKey, $count);
+        cache()->put($cacheKey, $count);
 
         return $count;
     }
@@ -115,7 +122,7 @@ class Post extends Model implements HasMedia
     /**
      * @throws Exception
      */
-    public function parentChain()
+    public function getParentChainAttribute()
     {
         $cacheKey = "post.{$this->id}.parent_chain";
         if ($chain = cache($cacheKey, false)) {
@@ -125,8 +132,8 @@ class Post extends Model implements HasMedia
         $posts = collect();
         $parent = $this->parent;
         while (!is_null($parent)) {
-            $parent->load(['blog.media', 'parent']);
-            $posts->add($parent);
+            //$parent->load(['blog.media', 'media', 'parent']);
+            $posts->add($parent->id);
 
             $cacheKeyParent = "post.{$parent->id}.parent_chain";
             if (cache($cacheKeyParent)) {

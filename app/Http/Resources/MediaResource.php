@@ -15,6 +15,7 @@ class MediaResource extends JsonResource
     public function toArray($request)
     {
         $file = $this->resource->responsiveImages('optimized')->files->first();
+
         return [
             'id' => $this->id,
             'collection' => $this->collection_name,

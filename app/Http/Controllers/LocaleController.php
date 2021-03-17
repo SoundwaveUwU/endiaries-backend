@@ -25,8 +25,9 @@ class LocaleController extends Controller
             }
         }
 
-        return response()->withHeaders([
-            'Last-Modified' => Carbon::createFromTimestamp($mtime)->toRfc7231String()
-        ])->file(resource_path("lang/{$locale}.json"));
+        return response()
+            ->download(resource_path("lang/{$locale}.json"), null, [
+                'Last-Modified' => Carbon::createFromTimestamp($mtime)->toRfc7231String(),
+            ]);
     }
 }

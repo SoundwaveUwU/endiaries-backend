@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BlogResource;
 use App\Http\Resources\PostResource;
+use App\Models\Blog;
 use App\Models\Post;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,9 +22,16 @@ class FeedController extends Controller
         $posts = Post::latest('id')
             ->skip($request->input('offset', 0))
             ->take(10)
-            ->with('blog', 'media')
             ->get();
 
-        return PostResource::collection($posts);
+        $parentPosts = Post::whereIn('id', $posts->pluck('parentChain')->flatten()->unique())->get();
+
+        $blogs = Blog::whereIn('id', $posts->pluck('blog_id')->merge($parentPosts->pluck('id'))->unique())->get();
+
+        return [
+            'posts' => PostResource::collection($posts),
+            'parent_posts' => PostResource::collection($parentPosts),
+            'blogs' => BlogResource::collection($blogs),
+        ];
     }
 }
