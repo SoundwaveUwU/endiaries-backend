@@ -6,6 +6,7 @@ use App\Guards\JwtGuard;
 use App\Http\Requests\AccountCreateRequest;
 use App\Http\Requests\AccountLoginRequest;
 use App\Http\Requests\AccountRefreshRequest;
+use App\Http\Resources\BlogResource;
 use App\Http\Resources\SessionResource;
 use App\Models\Session;
 use App\Models\User;
@@ -138,5 +139,10 @@ class AccountController extends Controller
         return [
             'token' => csrf_token(),
         ];
+    }
+
+    public function blogs(): AnonymousResourceCollection
+    {
+        return BlogResource::collection(Auth::user()->blogs);
     }
 }

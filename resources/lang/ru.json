@@ -13,5 +13,9 @@
     "OS": "ОС",
     "Browser": "Браузер",
     "Location": "Местоположение",
-    "IP": "IP адрес"
+    "IP": "IP адрес",
+    "Logged in at": "Дата и время входа",
+    "Logout everywhere else": "Выйти из других устройств",
+    "Sessions": "Сессии",
+    "Account": "Аккаунт"
 }

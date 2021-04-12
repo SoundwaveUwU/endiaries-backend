@@ -31,7 +31,7 @@ class PostSeeder extends Seeder
     {
         $blogs = Blog::all();
         $date = now();
-        for ($i = 1; $i <= 95; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $posts = Post::factory()
                 ->count(5)
                 ->create();

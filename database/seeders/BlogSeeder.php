@@ -6,6 +6,7 @@ use App\Models\Blog;
 use App\Models\Follow;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
 
 class BlogSeeder extends Seeder
 {
@@ -13,6 +14,7 @@ class BlogSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     * @throws FileCannotBeAdded
      */
     public function run()
     {
@@ -20,9 +22,10 @@ class BlogSeeder extends Seeder
 
         Blog::factory()
             ->count(10)
-            ->for($users->random())
-            ->create()
-            ->each(function ($blog) {
+            ->make()
+            ->each(function (Blog $blog) use ($users) {
+                $blog->user()->associate($users->random());
+
                 // some blogs may lack avatar
                 if (rand(1, 100) >= 50)
                     return;

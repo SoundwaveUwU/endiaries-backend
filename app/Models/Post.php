@@ -98,6 +98,11 @@ class Post extends Model implements HasMedia
         return $this->belongsTo(Blog::class);
     }
 
+    public function tags(): HasMany
+    {
+        return $this->hasMany(Tag::class);
+    }
+
     /**
      * @return CacheManager|Application|mixed
      * @throws Exception
@@ -126,32 +131,30 @@ class Post extends Model implements HasMedia
     {
         $cacheKey = "post.{$this->id}.parent_chain";
         if ($chain = cache($cacheKey, false)) {
-            return $chain;
+            return $chain->toArray();
         }
 
         $posts = collect();
         $parent = $this->parent;
         while (!is_null($parent)) {
-            //$parent->load(['blog.media', 'media', 'parent']);
             $posts->add($parent->id);
 
             $cacheKeyParent = "post.{$parent->id}.parent_chain";
             if (cache($cacheKeyParent)) {
-                $chain = $posts->merge($parent->parentChain());
+                $chain = $posts->merge($parent->parent_сhain);
+                $chain = $chain->sort();
                 cache()->put($cacheKey, $chain);
-                return $chain;
+                return $chain->toArray();
             }
 
             $parent = $parent->parent;
         }
 
-        $chain = $posts
-            ->sortBy('created_at')
-            ->sortBy('id');
+        $chain = $posts->sort();
 
         cache()->put($cacheKey, $chain);
 
-        return $chain;
+        return $chain->toArray();
     }
 
     public function registerMediaCollections(): void

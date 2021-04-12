@@ -32,6 +32,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('account/logout', [AccountController::class, 'logout']);
     Route::get('account/current', [AccountController::class, 'index']);
     Route::get('account/sessions', [AccountController::class, 'sessions']);
+    Route::get('account/blogs', [AccountController::class, 'blogs']);
 
     Route::apiResources([
         'feed' => 'FeedController',
